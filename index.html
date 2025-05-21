@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Calculator</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #141E30, #243B55);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            overflow: hidden;
+        }
+        .calculator {
+            background: #f9f9f9;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            padding: 20px;
+            width: 300px;
+            transform: translateY(-50px);
+            opacity: 0;
+            animation: slideIn 1s forwards;
+        }
+        @keyframes slideIn {
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .display {
+            background: #222;
+            color: #0f0;
+            font-size: 2em;
+            border-radius: 6px;
+            padding: 10px;
+            text-align: right;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            padding: 15px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 6px;
+            background: #eee;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #ddd;
+        }
+        button.operator {
+            background: #ff9f43;
+            color: #fff;
+        }
+        button.operator:hover {
+            background: #ff7f00;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator" id="calc">
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <button class="operator" data-op="clear">C</button>
+            <button class="operator" data-op="/">&divide;</button>
+            <button class="operator" data-op="*">&times;</button>
+            <button class="operator" data-op="-">&minus;</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button class="operator" data-op="+">+</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button class="operator" data-op="=">=</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>0</button>
+            <button>.</button>
+        </div>
+    </div>
+<script>
+    const display = document.getElementById('display');
+    const buttons = document.querySelectorAll('.buttons button');
+    let current = '';
+    let operator = null;
+    let stored = null;
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const op = btn.dataset.op;
+            const val = btn.textContent;
+            if (!op) {
+                if (display.textContent === '0') display.textContent = val;
+                else display.textContent += val;
+                return;
+            }
+            if (op === 'clear') {
+                display.textContent = '0';
+                current = '';
+                operator = null;
+                stored = null;
+                return;
+            }
+            if (op === '=') {
+                if (operator && current !== '') {
+                    stored = operate(parseFloat(stored), parseFloat(current), operator);
+                    display.textContent = stored;
+                    operator = null;
+                    current = '';
+                }
+                return;
+            }
+            if (operator) {
+                stored = operate(parseFloat(stored), parseFloat(current || display.textContent), operator);
+                display.textContent = stored;
+            } else {
+                stored = parseFloat(display.textContent);
+            }
+            operator = op;
+            current = '';
+            display.textContent = '0';
+        });
+    });
+
+    function operate(a, b, op) {
+        switch(op) {
+            case '+': return a + b;
+            case '-': return a - b;
+            case '*': return a * b;
+            case '/': return b ? a / b : 'Err';
+        }
+    }
+</script>
+</body>
+</html>
