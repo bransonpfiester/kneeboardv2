@@ -1,0 +1,26 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="paint0_linear" x1="68" y1="64" x2="420" y2="432" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FBBF24" />
+      <stop offset="0.5" stop-color="#F472B6" />
+      <stop offset="1" stop-color="#38BDF8" />
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="512" height="512" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feOffset dy="16" />
+      <feGaussianBlur stdDeviation="24" result="blur" />
+      <feColorMatrix type="matrix" values="0 0 0 0 0.05 0 0 0 0 0.08 0 0 0 0 0.2 0 0 0 0.35 0" />
+      <feBlend in2="SourceGraphic" />
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <rect x="64" y="48" width="384" height="384" rx="160" fill="url(#paint0_linear)" />
+    <rect x="128" y="112" width="256" height="256" rx="128" fill="rgba(255,255,255,0.2)" />
+    <path
+      d="M256 168c-61 0-112 42-112 100 0 46 32 82 86 96-0.6 10.8-6.8 25.6-23.8 41.6 32.4-4.2 61-16.4 78.8-33.6 58.2-6.6 101-47.6 101-104 0-58-50-100-130-100z"
+      fill="rgba(15,23,42,0.75)"
+    />
+    <circle cx="208" cy="236" r="16" fill="white" opacity="0.85" />
+    <circle cx="272" cy="236" r="16" fill="white" opacity="0.85" />
+    <path d="M200 296c22 18 62 18 84 0" stroke="white" stroke-width="18" stroke-linecap="round" opacity="0.85" />
+  </g>
+</svg>
